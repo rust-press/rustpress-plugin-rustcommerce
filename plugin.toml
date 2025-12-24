@@ -1,0 +1,685 @@
+# RustCommerce - E-Commerce Plugin for RustPress
+# A complete WooCommerce-like e-commerce solution with 22+ features
+
+[plugin]
+id = "rustcommerce"
+name = "RustCommerce"
+version = "1.0.0"
+description = "Complete e-commerce solution for RustPress - Products, Cart, Checkout, Orders, Payments, Shipping, Subscriptions, Bookings, Marketplace, and 20+ more features"
+author = "RustPress Team"
+author_url = "https://rustpress.dev"
+homepage = "https://rustpress.dev/plugins/rustcommerce"
+license = "GPL-3.0"
+min_rustpress_version = "1.0.0"
+tags = ["ecommerce", "shop", "store", "products", "cart", "checkout", "payments", "subscriptions", "bookings", "marketplace", "woocommerce"]
+
+[plugin.capabilities]
+manage_options = true
+manage_products = true
+manage_orders = true
+manage_customers = true
+manage_coupons = true
+manage_shipping = true
+manage_taxes = true
+process_payments = true
+add_shortcodes = true
+add_widgets = true
+add_admin_pages = true
+add_rest_api = true
+send_emails = true
+manage_subscriptions = true
+manage_bookings = true
+manage_memberships = true
+manage_vendors = true
+manage_inventory = true
+manage_invoices = true
+manage_marketing = true
+manage_analytics = true
+
+[plugin.features]
+# All available feature modules
+subscriptions = true
+bookings = true
+memberships = true
+rewards = true
+wishlist = true
+bundles = true
+auctions = true
+marketplace = true
+analytics = true
+email_marketing = true
+cart_recovery = true
+recommendations = true
+dynamic_pricing = true
+inventory_forecast = true
+multi_currency = true
+customization = true
+preorders = true
+waitlist = true
+comparisons = true
+advanced_search = true
+invoicing = true
+email_templates = true
+
+[plugin.settings]
+# General settings
+store_name = "My Store"
+store_address = ""
+store_city = ""
+store_country = "US"
+store_currency = "USD"
+currency_position = "left" # left, right, left_space, right_space
+thousand_separator = ","
+decimal_separator = "."
+number_of_decimals = 2
+
+# Product settings
+enable_reviews = true
+review_rating_required = true
+enable_stock_management = true
+low_stock_threshold = 5
+out_of_stock_visibility = true
+enable_backorders = false
+
+# Cart settings
+enable_cart = true
+cart_redirect_after_add = false
+enable_ajax_cart = true
+enable_cart_coupons = true
+minimum_order_amount = 0
+
+# Checkout settings
+enable_guest_checkout = true
+require_phone = false
+enable_order_notes = true
+enable_terms_checkbox = true
+terms_page_id = 0
+
+# Shipping settings
+enable_shipping = true
+enable_shipping_calc = true
+default_shipping_method = "flat_rate"
+free_shipping_threshold = 0
+
+# Tax settings
+enable_taxes = true
+prices_include_tax = false
+tax_based_on = "shipping" # shipping, billing, base
+tax_display_shop = "excl" # incl, excl
+tax_display_cart = "excl"
+
+# Payment settings
+enable_payments = true
+default_payment_method = "stripe"
+
+# Email settings
+email_from_name = "My Store"
+email_from_address = "store@example.com"
+email_footer_text = "Thank you for shopping with us!"
+
+# Subscription settings
+subscription_renewal_reminder_days = 3
+enable_subscription_switching = true
+enable_subscription_pausing = true
+
+# Booking settings
+booking_calendar_range_months = 6
+booking_min_advance_hours = 24
+booking_max_advance_days = 90
+
+# Membership settings
+membership_content_restriction = true
+membership_discount_enabled = true
+
+# Marketplace settings
+marketplace_commission_rate = 10
+marketplace_vendor_registration = true
+marketplace_vendor_verification = true
+
+# Inventory settings
+inventory_forecast_enabled = true
+inventory_auto_reorder = false
+inventory_low_stock_email = true
+
+[plugin.hooks]
+actions = [
+    "init",
+    "wp_head",
+    "wp_footer",
+    "rustcommerce_before_cart",
+    "rustcommerce_after_cart",
+    "rustcommerce_before_checkout",
+    "rustcommerce_after_checkout",
+    "rustcommerce_order_created",
+    "rustcommerce_order_completed",
+    "rustcommerce_payment_complete",
+    "rustcommerce_low_stock",
+    "rustcommerce_out_of_stock",
+    "rustcommerce_subscription_created",
+    "rustcommerce_subscription_renewed",
+    "rustcommerce_subscription_cancelled",
+    "rustcommerce_booking_created",
+    "rustcommerce_booking_confirmed",
+    "rustcommerce_booking_cancelled",
+    "rustcommerce_membership_activated",
+    "rustcommerce_membership_expired",
+    "rustcommerce_vendor_registered",
+    "rustcommerce_vendor_approved",
+    "rustcommerce_payout_created",
+    "rustcommerce_invoice_generated",
+    "rustcommerce_cart_abandoned",
+    "rustcommerce_cart_recovered",
+    "rustcommerce_auction_started",
+    "rustcommerce_auction_ended",
+    "rustcommerce_bid_placed",
+    "rustcommerce_waitlist_notified"
+]
+filters = [
+    "rustcommerce_product_price",
+    "rustcommerce_cart_total",
+    "rustcommerce_shipping_methods",
+    "rustcommerce_payment_gateways",
+    "rustcommerce_checkout_fields",
+    "rustcommerce_order_statuses",
+    "rustcommerce_tax_rates",
+    "rustcommerce_subscription_price",
+    "rustcommerce_booking_availability",
+    "rustcommerce_membership_access",
+    "rustcommerce_vendor_commission",
+    "rustcommerce_dynamic_price",
+    "rustcommerce_product_recommendations",
+    "rustcommerce_search_results",
+    "rustcommerce_invoice_template"
+]
+
+[plugin.admin_menu]
+# Admin menu structure - All menus under Plugins > RustCommerce
+parent = "plugins"
+base_url = "/admin/plugins/rustcommerce"
+
+[[plugin.admin_menu.items]]
+title = "RustCommerce"
+slug = "rustcommerce"
+icon = "shopping-cart"
+position = 55
+
+[[plugin.admin_menu.items.submenu]]
+title = "Dashboard"
+slug = "rustcommerce"
+capability = "manage_rustcommerce"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Home"
+slug = "rustcommerce/home"
+capability = "manage_rustcommerce"
+
+# Products Menu
+[[plugin.admin_menu.items]]
+title = "Products"
+slug = "rustcommerce/products"
+icon = "package"
+position = 56
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Products"
+slug = "rustcommerce/products"
+capability = "manage_rc_products"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Add New"
+slug = "rustcommerce/products/new"
+capability = "edit_rc_products"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Categories"
+slug = "rustcommerce/products/categories"
+capability = "manage_rc_categories"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Tags"
+slug = "rustcommerce/products/tags"
+capability = "manage_rc_tags"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Attributes"
+slug = "rustcommerce/products/attributes"
+capability = "manage_rc_attributes"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Bundles"
+slug = "rustcommerce/products/bundles"
+capability = "manage_rc_products"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Reviews"
+slug = "rustcommerce/products/reviews"
+capability = "manage_rc_products"
+
+# Orders Menu
+[[plugin.admin_menu.items]]
+title = "Orders"
+slug = "rustcommerce/orders"
+icon = "clipboard-list"
+position = 57
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Orders"
+slug = "rustcommerce/orders"
+capability = "manage_rc_orders"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Invoices"
+slug = "rustcommerce/invoices"
+capability = "manage_rc_orders"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Refunds"
+slug = "rustcommerce/orders/refunds"
+capability = "manage_rc_orders"
+
+# Customers Menu
+[[plugin.admin_menu.items]]
+title = "Customers"
+slug = "rustcommerce/customers"
+icon = "users"
+position = 58
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Customers"
+slug = "rustcommerce/customers"
+capability = "manage_rc_customers"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Customer Groups"
+slug = "rustcommerce/customers/groups"
+capability = "manage_rc_customers"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Wishlists"
+slug = "rustcommerce/customers/wishlists"
+capability = "manage_rc_customers"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Waitlists"
+slug = "rustcommerce/customers/waitlists"
+capability = "manage_rc_customers"
+
+# Marketing Menu
+[[plugin.admin_menu.items]]
+title = "Marketing"
+slug = "rustcommerce/marketing"
+icon = "megaphone"
+position = 59
+
+[[plugin.admin_menu.items.submenu]]
+title = "Coupons"
+slug = "rustcommerce/marketing/coupons"
+capability = "manage_rc_coupons"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Email Campaigns"
+slug = "rustcommerce/marketing/campaigns"
+capability = "manage_rc_marketing"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Automations"
+slug = "rustcommerce/marketing/automations"
+capability = "manage_rc_marketing"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Cart Recovery"
+slug = "rustcommerce/marketing/cart-recovery"
+capability = "manage_rc_marketing"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Recommendations"
+slug = "rustcommerce/marketing/recommendations"
+capability = "manage_rc_marketing"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Dynamic Pricing"
+slug = "rustcommerce/marketing/pricing"
+capability = "manage_rc_marketing"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Rewards Program"
+slug = "rustcommerce/marketing/rewards"
+capability = "manage_rc_marketing"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Subscribers"
+slug = "rustcommerce/marketing/subscribers"
+capability = "manage_rc_marketing"
+
+# Subscriptions Menu
+[[plugin.admin_menu.items]]
+title = "Subscriptions"
+slug = "rustcommerce/subscriptions"
+icon = "repeat"
+position = 60
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Subscriptions"
+slug = "rustcommerce/subscriptions"
+capability = "manage_rc_subscriptions"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Memberships"
+slug = "rustcommerce/subscriptions/memberships"
+capability = "manage_rc_subscriptions"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Membership Plans"
+slug = "rustcommerce/subscriptions/plans"
+capability = "manage_rc_subscriptions"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Renewals"
+slug = "rustcommerce/subscriptions/renewals"
+capability = "manage_rc_subscriptions"
+
+# Bookings Menu
+[[plugin.admin_menu.items]]
+title = "Bookings"
+slug = "rustcommerce/bookings"
+icon = "calendar"
+position = 61
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Bookings"
+slug = "rustcommerce/bookings"
+capability = "manage_rc_bookings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Calendar"
+slug = "rustcommerce/bookings/calendar"
+capability = "manage_rc_bookings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Resources"
+slug = "rustcommerce/bookings/resources"
+capability = "manage_rc_bookings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Availability"
+slug = "rustcommerce/bookings/availability"
+capability = "manage_rc_bookings"
+
+# Inventory Menu
+[[plugin.admin_menu.items]]
+title = "Inventory"
+slug = "rustcommerce/inventory"
+icon = "warehouse"
+position = 62
+
+[[plugin.admin_menu.items.submenu]]
+title = "Stock Levels"
+slug = "rustcommerce/inventory"
+capability = "manage_rc_inventory"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Stock Movements"
+slug = "rustcommerce/inventory/movements"
+capability = "manage_rc_inventory"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Warehouses"
+slug = "rustcommerce/inventory/warehouses"
+capability = "manage_rc_inventory"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Suppliers"
+slug = "rustcommerce/inventory/suppliers"
+capability = "manage_rc_inventory"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Purchase Orders"
+slug = "rustcommerce/inventory/purchase-orders"
+capability = "manage_rc_inventory"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Stock Alerts"
+slug = "rustcommerce/inventory/alerts"
+capability = "manage_rc_inventory"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Forecasting"
+slug = "rustcommerce/inventory/forecasting"
+capability = "manage_rc_inventory"
+
+# Analytics Menu
+[[plugin.admin_menu.items]]
+title = "Analytics"
+slug = "rustcommerce/analytics"
+icon = "bar-chart-2"
+position = 63
+
+[[plugin.admin_menu.items.submenu]]
+title = "Overview"
+slug = "rustcommerce/analytics"
+capability = "view_rc_reports"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Sales Reports"
+slug = "rustcommerce/analytics/sales"
+capability = "view_rc_reports"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Product Reports"
+slug = "rustcommerce/analytics/products"
+capability = "view_rc_reports"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Customer Reports"
+slug = "rustcommerce/analytics/customers"
+capability = "view_rc_reports"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Marketing Reports"
+slug = "rustcommerce/analytics/marketing"
+capability = "view_rc_reports"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Search Analytics"
+slug = "rustcommerce/analytics/search"
+capability = "view_rc_reports"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Export"
+slug = "rustcommerce/analytics/export"
+capability = "view_rc_reports"
+
+# Vendors Menu (Marketplace)
+[[plugin.admin_menu.items]]
+title = "Vendors"
+slug = "rustcommerce/vendors"
+icon = "store"
+position = 64
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Vendors"
+slug = "rustcommerce/vendors"
+capability = "manage_rc_vendors"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Applications"
+slug = "rustcommerce/vendors/applications"
+capability = "manage_rc_vendors"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Payouts"
+slug = "rustcommerce/vendors/payouts"
+capability = "manage_rc_vendors"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Commissions"
+slug = "rustcommerce/vendors/commissions"
+capability = "manage_rc_vendors"
+
+# Auctions Menu
+[[plugin.admin_menu.items]]
+title = "Auctions"
+slug = "rustcommerce/auctions"
+icon = "gavel"
+position = 65
+
+[[plugin.admin_menu.items.submenu]]
+title = "All Auctions"
+slug = "rustcommerce/auctions"
+capability = "manage_rc_auctions"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Bids"
+slug = "rustcommerce/auctions/bids"
+capability = "manage_rc_auctions"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Auction Settings"
+slug = "rustcommerce/auctions/settings"
+capability = "manage_rc_auctions"
+
+# Settings Menu
+[[plugin.admin_menu.items]]
+title = "Settings"
+slug = "rustcommerce/settings"
+icon = "settings"
+position = 99
+
+[[plugin.admin_menu.items.submenu]]
+title = "General"
+slug = "rustcommerce/settings"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Payments"
+slug = "rustcommerce/settings/payments"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Shipping"
+slug = "rustcommerce/settings/shipping"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Tax"
+slug = "rustcommerce/settings/tax"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Currency"
+slug = "rustcommerce/settings/currency"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Email Templates"
+slug = "rustcommerce/settings/emails"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Checkout"
+slug = "rustcommerce/settings/checkout"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Accounts"
+slug = "rustcommerce/settings/accounts"
+capability = "manage_rc_settings"
+
+[[plugin.admin_menu.items.submenu]]
+title = "Advanced"
+slug = "rustcommerce/settings/advanced"
+capability = "manage_rc_settings"
+
+[plugin.rest_api]
+# REST API endpoints
+namespace = "rc/v1"
+endpoints = [
+    "products",
+    "products/categories",
+    "products/tags",
+    "products/attributes",
+    "products/variations",
+    "products/bundles",
+    "orders",
+    "orders/refunds",
+    "invoices",
+    "customers",
+    "customers/groups",
+    "coupons",
+    "shipping/zones",
+    "shipping/methods",
+    "taxes",
+    "reports/sales",
+    "reports/products",
+    "reports/customers",
+    "reports/marketing",
+    "cart",
+    "checkout",
+    "subscriptions",
+    "subscriptions/renewals",
+    "memberships",
+    "memberships/plans",
+    "bookings",
+    "bookings/resources",
+    "bookings/availability",
+    "vendors",
+    "vendors/payouts",
+    "vendors/commissions",
+    "auctions",
+    "auctions/bids",
+    "inventory",
+    "inventory/movements",
+    "inventory/warehouses",
+    "inventory/suppliers",
+    "inventory/purchase-orders",
+    "marketing/campaigns",
+    "marketing/automations",
+    "marketing/cart-recovery",
+    "marketing/recommendations",
+    "marketing/rewards",
+    "wishlists",
+    "waitlists",
+    "comparisons",
+    "search",
+    "currency"
+]
+
+[plugin.shortcodes]
+# Available shortcodes
+codes = [
+    { code = "rc_products", description = "Display products grid" },
+    { code = "rc_product", description = "Display single product" },
+    { code = "rc_cart", description = "Display shopping cart" },
+    { code = "rc_checkout", description = "Display checkout form" },
+    { code = "rc_my_account", description = "Display customer account" },
+    { code = "rc_order_tracking", description = "Display order tracking" },
+    { code = "rc_categories", description = "Display product categories" },
+    { code = "rc_featured", description = "Display featured products" },
+    { code = "rc_sale", description = "Display products on sale" },
+    { code = "rc_best_sellers", description = "Display best selling products" },
+    { code = "rc_recently_viewed", description = "Display recently viewed products" },
+    { code = "rc_subscriptions", description = "Display customer subscriptions" },
+    { code = "rc_bookings", description = "Display booking calendar" },
+    { code = "rc_membership_content", description = "Display members-only content" },
+    { code = "rc_wishlist", description = "Display customer wishlist" },
+    { code = "rc_compare", description = "Display product comparison" },
+    { code = "rc_auction", description = "Display auction product" }
+]
+
+[plugin.widgets]
+# Available widgets
+widgets = [
+    { id = "rc_cart_widget", name = "Cart Widget", description = "Display mini cart" },
+    { id = "rc_products_widget", name = "Products Widget", description = "Display products" },
+    { id = "rc_categories_widget", name = "Categories Widget", description = "Display categories" },
+    { id = "rc_filter_widget", name = "Product Filter", description = "Filter products" },
+    { id = "rc_price_filter", name = "Price Filter", description = "Filter by price" },
+    { id = "rc_rating_filter", name = "Rating Filter", description = "Filter by rating" },
+    { id = "rc_recently_viewed", name = "Recently Viewed", description = "Show recently viewed" },
+    { id = "rc_recommendations", name = "Recommendations", description = "Show product recommendations" }
+]
+
+[dependencies]
+# No required dependencies - all features work independently
+# Optional integrations:
+optional = []
